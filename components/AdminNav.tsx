@@ -32,6 +32,9 @@ export default function AdminNav({ userEmail }: Props) {
         </Link>
 
         <div className="flex items-center gap-4">
+          <Link href="/" className="text-xs text-gray-400 hover:text-white transition-colors">
+            ← ホーム
+          </Link>
           <span className="text-xs text-gray-400">{userEmail}</span>
           <button
             onClick={handleLogout}

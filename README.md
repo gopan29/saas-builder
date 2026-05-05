@@ -1,36 +1,72 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Demo Builder
 
-## Getting Started
+クライアント商談時に「御社ならこう管理できます」と見せるための業種別業務管理デモサイトビルダー。社内営業ツール。
 
-First, run the development server:
+## 基本情報
+
+| 項目 | 値 |
+|------|----|
+| 本番URL | https://demo-builder-coral.vercel.app |
+| GitHub | https://github.com/gopan29/demo-builder |
+| Supabase Ref | `bdxjhtiwhzfgdvyiclnx` |
+| Vercel Project ID | `prj_C1HZn5yulwTMGLf9o4ncHZiCB8aO` |
+| ローカルパス | `/Users/yukiota/Desktop/Clans Quest Project/demo-builder` |
+| デプロイ | `main` への push → Vercel 自動デプロイ |
+
+## 技術スタック
+
+- Next.js 16 (App Router + TypeScript)
+- Supabase (Auth + DB)
+- Tailwind CSS v4
+- Vercel
+
+## ローカル起動
 
 ```bash
+cd demo-builder
+npm install
+# .env.local に NEXT_PUBLIC_SUPABASE_URL / NEXT_PUBLIC_SUPABASE_ANON_KEY を設定
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 環境変数
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_ANON_KEY=
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## ページ構成
 
-## Learn More
+| パス | 認証 | 概要 |
+|------|------|------|
+| `/` | 不要 | 公開ランディングページ |
+| `/admin` | 必要 | デモ案件一覧 |
+| `/admin/new` | 必要 | 新規デモ作成 |
+| `/demo/[slug]` | 不要 | デモ閲覧（公開） |
 
-To learn more about Next.js, take a look at the following resources:
+## 対応業種（8業種）
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+| 識別子 | 業種 |
+|--------|------|
+| `dog_salon` | ドッグサロン |
+| `beauty_salon` | 美容室 |
+| `dental_clinic` | 歯科クリニック |
+| `restaurant` | 飲食店 |
+| `esthetic_salon` | エステサロン |
+| `osteopathic_clinic` | 整骨院・接骨院 |
+| `juku` | 学習塾 |
+| `yoga_fitness` | ヨガ・フィットネス |
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+業種テンプレートは `lib/industry-templates.ts` で一元管理。  
+サンプルデータは `lib/sample-data-*.ts` に埋め込み（従量課金APIは未使用）。
 
-## Deploy on Vercel
+## DB構成
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+- `demos` テーブル（RLS無効）: `slug` / `client_name` / `industry_template` / `theme_color` / `is_active`
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 残タスク
+
+- [ ] デモURLのQRコード表示
+- [ ] 管理画面からサンプルデータをカスタマイズできる機能
+- [ ] デモ閲覧に簡易パスワード保護
