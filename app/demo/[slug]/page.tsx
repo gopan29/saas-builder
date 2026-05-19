@@ -231,7 +231,7 @@ export default async function DemoDashboard({ params }: Props) {
           <div className="bg-white rounded-xl border border-gray-200 p-4 sm:p-5">
             <h2 className="text-sm font-bold text-gray-800 mb-2">リピート率</h2>
             <p className="text-3xl font-bold" style={{ color }}>{repeatRate}<span className="text-base font-normal text-gray-400 ml-1">%</span></p>
-            <p className="text-xs text-gray-400 mt-1">3回以上来店の顧客比率</p>
+            <p className="text-xs text-gray-400 mt-1">5回以上来店の顧客比率</p>
           </div>
         </div>
       </div>
