@@ -45,14 +45,14 @@ export default async function DemoDashboard({ params }: Props) {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-xl font-bold text-gray-800">ダッシュボード</h1>
+        <h1 className="text-lg sm:text-xl font-bold text-gray-800">ダッシュボード</h1>
         <p className="text-sm text-gray-400 mt-0.5">本日の業務サマリ</p>
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
         {stats.map(stat => (
-          <div key={stat.label} className="bg-white rounded-xl border p-4" style={{ borderColor: stat.alert ? '#fca5a5' : '#e5e7eb' }}>
+          <div key={stat.label} className="bg-white rounded-xl border p-3 sm:p-4" style={{ borderColor: stat.alert ? '#fca5a5' : '#e5e7eb' }}>
             <p className="text-xs text-gray-400 mb-1">{stat.label}</p>
-            <p className="text-3xl font-bold" style={{ color: stat.alert ? '#ef4444' : color }}>
+            <p className="text-2xl sm:text-3xl font-bold" style={{ color: stat.alert ? '#ef4444' : color }}>
               {stat.value}<span className="text-sm font-normal text-gray-400 ml-1">{stat.unit}</span>
             </p>
             <p className="text-xs text-gray-400 mt-1">{stat.sub}</p>
@@ -60,14 +60,14 @@ export default async function DemoDashboard({ params }: Props) {
         ))}
       </div>
       <div className="bg-white rounded-xl border border-gray-200">
-        <div className="px-5 py-4 border-b border-gray-100">
+        <div className="px-4 sm:px-5 py-4 border-b border-gray-100">
           <h2 className="font-bold text-gray-800 text-sm">今日の予約</h2>
         </div>
         <div className="divide-y divide-gray-50">
           {todayReservations.length === 0 ? (
-            <p className="px-5 py-6 text-sm text-gray-400 text-center">本日の予約はありません</p>
+            <p className="px-4 sm:px-5 py-6 text-sm text-gray-400 text-center">本日の予約はありません</p>
           ) : todayReservations.map(r => (
-            <div key={r.id} className="px-4 py-3 flex items-center gap-3">
+            <div key={r.id} className="px-3 sm:px-4 py-3 flex items-center gap-3">
               <span className="text-sm font-bold text-gray-500 w-12 flex-shrink-0">{r.time}</span>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-1.5 flex-wrap">

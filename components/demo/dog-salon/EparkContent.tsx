@@ -21,11 +21,11 @@ export default function DogSalonEparkContent() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-xl font-bold text-gray-800">eパーク 転記管理</h1>
+        <h1 className="text-lg sm:text-xl font-bold text-gray-800">eパーク 転記管理</h1>
         <p className="text-sm text-gray-400 mt-0.5">eパークから入った予約を自社システムへ転記します</p>
       </div>
 
-      <div className="bg-orange-50 border border-orange-200 rounded-xl px-5 py-4 flex items-center gap-3">
+      <div className="bg-orange-50 border border-orange-200 rounded-xl px-4 sm:px-5 py-4 flex items-center gap-3">
         <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center flex-shrink-0 text-white font-bold text-sm">
           e
         </div>
@@ -48,9 +48,9 @@ export default function DogSalonEparkContent() {
           ) : (
             <div className="divide-y divide-gray-50">
               {pending.map(e => (
-                <div key={e.id} className="px-5 py-4 flex items-center gap-4">
-                  <div className="flex-1">
-                    <p className="text-xs font-mono text-gray-400">{e.epark_id}</p>
+                <div key={e.id} className="px-3 sm:px-5 py-4 flex items-center gap-3 sm:gap-4">
+                  <div className="flex-1 min-w-0">
+                    <p className="text-xs font-mono text-gray-400 truncate">{e.epark_id}</p>
                     <p className="font-bold text-gray-800 mt-0.5">
                       {e.dog_name} <span className="font-normal text-gray-400 text-sm">（{e.customer_name} 様）</span>
                     </p>
@@ -58,7 +58,7 @@ export default function DogSalonEparkContent() {
                   </div>
                   <button
                     onClick={() => transfer(e.id)}
-                    className="text-sm font-bold text-white bg-orange-500 hover:bg-orange-600 active:bg-orange-700 px-4 py-2 rounded-lg transition-colors flex-shrink-0"
+                    className="text-sm font-bold text-white bg-orange-500 hover:bg-orange-600 active:bg-orange-700 px-3 sm:px-4 py-2 rounded-lg transition-colors flex-shrink-0 whitespace-nowrap"
                   >
                     転記する
                   </button>
@@ -74,8 +74,8 @@ export default function DogSalonEparkContent() {
         <div className="bg-white rounded-xl border border-gray-100 overflow-hidden">
           <div className="divide-y divide-gray-50">
             {done.map(e => (
-              <div key={e.id} className="px-5 py-3 flex items-center gap-4 opacity-60">
-                <div className="flex-1">
+              <div key={e.id} className="px-3 sm:px-5 py-3 flex items-center gap-3 sm:gap-4 opacity-60">
+                <div className="flex-1 min-w-0">
                   <p className="font-medium text-gray-600 text-sm">
                     {e.dog_name} <span className="text-gray-400">（{e.customer_name} 様）</span>
                   </p>

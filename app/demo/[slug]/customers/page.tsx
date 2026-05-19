@@ -26,19 +26,19 @@ export default async function CustomersPage({ params }: Props) {
 
   return (
     <div className="space-y-5">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between gap-2 flex-wrap">
         <div>
-          <h1 className="text-xl font-bold text-gray-800">顧客管理</h1>
+          <h1 className="text-lg sm:text-xl font-bold text-gray-800">顧客管理</h1>
           <p className="text-sm text-gray-400 mt-0.5">登録顧客 {customers.length} 名</p>
         </div>
-        <button className="bg-blue-500 text-white text-sm font-bold px-4 py-2 rounded-lg opacity-60 cursor-default">＋ 新規登録（デモ）</button>
+        <button className="bg-blue-500 text-white text-sm font-bold px-4 py-2 rounded-lg opacity-60 cursor-default whitespace-nowrap">＋ 新規登録（デモ）</button>
       </div>
       <div className="bg-white rounded-xl border border-gray-200 overflow-hidden">
         <div className="divide-y divide-gray-50">
           {customers.map(c => {
             const myDogs = dogs.filter(d => d.customer_id === c.id)
             return (
-              <div key={c.id} className="px-4 py-4 flex items-start gap-3 hover:bg-gray-50 transition-colors">
+              <div key={c.id} className="px-3 sm:px-4 py-4 flex items-start gap-3 hover:bg-gray-50 transition-colors">
                 <div className="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600 font-bold flex-shrink-0">
                   {c.name.charAt(0)}
                 </div>

@@ -12,26 +12,26 @@ export default function BeautySalonReservations() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between gap-2 flex-wrap">
         <div>
-          <h1 className="text-xl font-bold text-gray-800">予約管理</h1>
+          <h1 className="text-lg sm:text-xl font-bold text-gray-800">予約管理</h1>
           <p className="text-sm text-gray-400 mt-0.5">全 {beautyReservations.length} 件</p>
         </div>
-        <button className="bg-blue-500 text-white text-sm font-bold px-4 py-2 rounded-lg opacity-60 cursor-default">
+        <button className="bg-blue-500 text-white text-sm font-bold px-4 py-2 rounded-lg opacity-60 cursor-default whitespace-nowrap">
           ＋ 新規予約（デモ）
         </button>
       </div>
 
       {Object.entries(grouped).sort().map(([date, items]) => (
         <div key={date} className="bg-white rounded-xl border border-gray-200 overflow-hidden">
-          <div className="px-5 py-3 bg-gray-50 border-b border-gray-100">
+          <div className="px-4 sm:px-5 py-3 bg-gray-50 border-b border-gray-100">
             <h2 className="text-sm font-bold text-gray-600">{formatDate(date)}</h2>
           </div>
           <div className="divide-y divide-gray-50">
             {items.sort((a, b) => a.time.localeCompare(b.time)).map(r => {
               const s = beautyStatusMap[r.status]
               return (
-                <div key={r.id} className="px-5 py-4 flex items-start gap-4 hover:bg-gray-50 transition-colors">
+                <div key={r.id} className="px-3 sm:px-5 py-4 flex items-start gap-3 sm:gap-4 hover:bg-gray-50 transition-colors">
                   <div className="w-12 flex-shrink-0 text-center">
                     <p className="text-sm font-bold text-gray-700">{r.time}</p>
                     <p className="text-xs text-gray-400">{r.duration}分</p>

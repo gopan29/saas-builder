@@ -27,16 +27,16 @@ export default async function RecordsPage({ params }: Props) {
 
   return (
     <div className="space-y-5">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between gap-2 flex-wrap">
         <div>
-          <h1 className="text-xl font-bold text-gray-800">簡易カルテ</h1>
+          <h1 className="text-lg sm:text-xl font-bold text-gray-800">簡易カルテ</h1>
           <p className="text-sm text-gray-400 mt-0.5">来店 {medicalRecords.length} 件の記録</p>
         </div>
-        <button className="bg-blue-500 text-white text-sm font-bold px-4 py-2 rounded-lg opacity-60 cursor-default">＋ 新規記録（デモ）</button>
+        <button className="bg-blue-500 text-white text-sm font-bold px-4 py-2 rounded-lg opacity-60 cursor-default whitespace-nowrap">＋ 新規記録（デモ）</button>
       </div>
       <div className="space-y-3">
         {medicalRecords.sort((a, b) => b.visit_date.localeCompare(a.visit_date)).map(r => (
-          <div key={r.id} className="bg-white rounded-xl border border-gray-200 p-5">
+          <div key={r.id} className="bg-white rounded-xl border border-gray-200 p-4 sm:p-5">
             <div className="flex items-start justify-between gap-4">
               <div className="flex-1">
                 <div className="flex items-center gap-2 flex-wrap mb-2">

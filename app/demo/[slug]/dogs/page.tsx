@@ -12,12 +12,12 @@ export default function DogsPage() {
 
   return (
     <div className="space-y-5">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between gap-2 flex-wrap">
         <div>
-          <h1 className="text-xl font-bold text-gray-800">ワンちゃん管理</h1>
+          <h1 className="text-lg sm:text-xl font-bold text-gray-800">ワンちゃん管理</h1>
           <p className="text-sm text-gray-400 mt-0.5">登録頭数 {dogs.length} 頭</p>
         </div>
-        <button className="bg-blue-500 text-white text-sm font-bold px-4 py-2 rounded-lg opacity-60 cursor-default">
+        <button className="bg-blue-500 text-white text-sm font-bold px-4 py-2 rounded-lg opacity-60 cursor-default whitespace-nowrap">
           ＋ 新規登録（デモ）
         </button>
       </div>

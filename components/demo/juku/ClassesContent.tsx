@@ -12,12 +12,12 @@ const levelColor: Record<string, string> = {
 export default function JukuClasses() {
   return (
     <div className="space-y-5">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between gap-2 flex-wrap">
         <div>
-          <h1 className="text-xl font-bold text-gray-800">クラス管理</h1>
+          <h1 className="text-lg sm:text-xl font-bold text-gray-800">クラス管理</h1>
           <p className="text-sm text-gray-400 mt-0.5">開講中 {jukuClasses.length} 講座</p>
         </div>
-        <button className="bg-blue-500 text-white text-sm font-bold px-4 py-2 rounded-lg opacity-60 cursor-default">＋ 新規クラス（デモ）</button>
+        <button className="bg-blue-500 text-white text-sm font-bold px-4 py-2 rounded-lg opacity-60 cursor-default whitespace-nowrap">＋ 新規クラス（デモ）</button>
       </div>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {jukuClasses.map(c => {
@@ -43,10 +43,10 @@ export default function JukuClasses() {
               <div className="w-full bg-gray-100 rounded-full h-1.5 mb-3">
                 <div className="h-1.5 rounded-full" style={{ width: `${Math.min(ratio * 100, 100)}%`, backgroundColor: full ? '#ef4444' : '#3b82f6' }} />
               </div>
-              <div className="flex items-center justify-between text-xs text-gray-500">
+              <div className="flex items-center justify-between gap-2 flex-wrap text-xs text-gray-500">
                 <span>📅 {c.day}</span>
                 <span>🕐 {c.time}</span>
-                <span>👤 {c.teacher}</span>
+                <span className="truncate max-w-full">👤 {c.teacher}</span>
               </div>
               <p className="text-xs text-gray-400 mt-1">🏫 {c.room}</p>
             </div>

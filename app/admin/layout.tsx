@@ -1,6 +1,6 @@
 import { createClient } from '@/lib/supabase-server'
 import { redirect } from 'next/navigation'
-import AdminNav from '@/components/AdminNav'
+import AdminLayoutClient from '@/components/AdminLayoutClient'
 
 export default async function AdminLayout({ children }: { children: React.ReactNode }) {
   const supabase = await createClient()
@@ -10,12 +10,16 @@ export default async function AdminLayout({ children }: { children: React.ReactN
     redirect('/login')
   }
 
+  const now = new Date()
+  const startOfMonth = new Date(now.getFullYear(), now.getMonth(), 1).toISOString()
+  const { count: monthlyCount } = await supabase
+    .from('demos')
+    .select('id', { count: 'exact', head: true })
+    .gte('created_at', startOfMonth)
+
   return (
-    <div className="min-h-screen bg-gray-50">
-      <AdminNav userEmail={user.email ?? ''} />
-      <main className="max-w-5xl mx-auto px-4 py-8">
-        {children}
-      </main>
-    </div>
+    <AdminLayoutClient monthlyCount={monthlyCount ?? 0} userEmail={user.email ?? ''}>
+      {children}
+    </AdminLayoutClient>
   )
 }
