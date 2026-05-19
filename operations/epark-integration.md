@@ -1,8 +1,8 @@
 # eパーク 転記管理 — 連携仕様書
 
-> **対象**: ドッグサロン業種テンプレート（demo-builder）
+> **対象**: ドッグサロン業種テンプレート（saas-builder）
 > **用途**: 商談・クライアント説明用
-> **デモURL**: https://demo-builder-coral.vercel.app/demo/dogsalon_beam/epark
+> **デモURL**: https://saas-builder-coral.vercel.app/demo/dogsalon_beam/epark
 
 ---
 
@@ -118,7 +118,7 @@ sequenceDiagram
 ### 1) eパーク管理画面で API キーを発行
 事業者ページにログイン → 「外部連携」→ API キーを発行（読取権限）
 
-### 2) demo-builder 管理画面で連携情報を登録
+### 2) saas-builder 管理画面で連携情報を登録
 - API キー
 - 取込頻度（標準: 30分ごと / Webhook 対応の場合: リアルタイム）
 - 顧客紐付けのキー（電話番号 or メール）

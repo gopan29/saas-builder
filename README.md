@@ -6,11 +6,11 @@
 
 | 項目 | 値 |
 |------|----|
-| 本番URL | https://demo-builder-coral.vercel.app |
-| GitHub | https://github.com/gopan29/demo-builder |
+| 本番URL | https://saas-builder-coral.vercel.app |
+| GitHub | https://github.com/gopan29/saas-builder |
 | Supabase Ref | `bdxjhtiwhzfgdvyiclnx` |
 | Vercel Project ID | `prj_C1HZn5yulwTMGLf9o4ncHZiCB8aO` |
-| ローカルパス | `/Users/yukiota/Desktop/Clans Quest Project/demo-builder` |
+| ローカルパス | `/Users/yukiota/Desktop/Clans Quest Project/saas-builder` |
 | デプロイ | `main` への push → Vercel 自動デプロイ |
 
 ## 技術スタック
@@ -23,7 +23,7 @@
 ## ローカル起動
 
 ```bash
-cd demo-builder
+cd saas-builder
 npm install
 # .env.local に NEXT_PUBLIC_SUPABASE_URL / NEXT_PUBLIC_SUPABASE_ANON_KEY を設定
 npm run dev

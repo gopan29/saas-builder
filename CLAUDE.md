@@ -1,6 +1,6 @@
 @AGENTS.md
 
-# demo-builder — CLAUDE.md
+# saas-builder — CLAUDE.md
 
 グローバルルール（`/Users/yukiota/Desktop/Clans Quest Project/CLAUDE.md`）を前提とし、
 以下をこのプロジェクト固有のルールとして補足する。
@@ -18,11 +18,11 @@
 
 | 項目 | 値 |
 |------|-----|
-| 本番URL | https://demo-builder-coral.vercel.app |
-| GitHub | https://github.com/gopan29/demo-builder |
+| 本番URL | https://saas-builder-coral.vercel.app |
+| GitHub | https://github.com/gopan29/saas-builder |
 | Supabase Ref | `bdxjhtiwhzfgdvyiclnx` |
 | Vercel Project ID | `prj_C1HZn5yulwTMGLf9o4ncHZiCB8aO` |
-| ローカルパス | `/Users/yukiota/Desktop/Clans Quest Project/demo-builder` |
+| ローカルパス | `/Users/yukiota/Desktop/Clans Quest Project/saas-builder` |
 | デプロイ | `main` への push → Vercel 自動デプロイ |
 
 ---

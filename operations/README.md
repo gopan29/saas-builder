@@ -1,6 +1,6 @@
 # operations — 連携・運用仕様書
 
-このディレクトリには demo-builder で実装している外部サービス連携・運用の仕様を、
+このディレクトリには saas-builder で実装している外部サービス連携・運用の仕様を、
 **クライアント説明用 / 営業向け**にまとめたドキュメントを格納する。
 
 ## 一覧
@@ -18,5 +18,5 @@
 
 ## 関連リソース
 
-- 本番デモ: https://demo-builder-coral.vercel.app/demo/dogsalon_beam
-- リポジトリ: https://github.com/gopan29/demo-builder
+- 本番デモ: https://saas-builder-coral.vercel.app/demo/dogsalon_beam
+- リポジトリ: https://github.com/gopan29/saas-builder

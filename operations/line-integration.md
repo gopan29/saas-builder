@@ -1,8 +1,8 @@
 # LINE 連携 — 連携仕様書
 
-> **対象**: ドッグサロン / 美容室 / エステサロン業種テンプレート（demo-builder）
+> **対象**: ドッグサロン / 美容室 / エステサロン業種テンプレート（saas-builder）
 > **用途**: 商談・クライアント説明用
-> **デモURL**: https://demo-builder-coral.vercel.app/demo/dogsalon_beam/line
+> **デモURL**: https://saas-builder-coral.vercel.app/demo/dogsalon_beam/line
 
 ---
 
@@ -123,11 +123,11 @@ sequenceDiagram
 - 公式アカウントを発行（または既存と連携）
 
 ### 2) Webhook URL を設定
-- demo-builder 管理画面で発行される URL を LINE側に設定
-- 例: `https://demo-builder-coral.vercel.app/api/webhook/line/[salonID]`
+- saas-builder 管理画面で発行される URL を LINE側に設定
+- 例: `https://saas-builder-coral.vercel.app/api/webhook/line/[salonID]`
 - 「メッセージ受信」イベントをON
 
-### 3) demo-builder 側にチャネルアクセストークンを登録
+### 3) saas-builder 側にチャネルアクセストークンを登録
 - 管理画面 → 連携設定 → LINE
 - チャネルアクセストークン、チャネルシークレットを入力
 
