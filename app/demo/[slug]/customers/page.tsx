@@ -1,5 +1,6 @@
 import { createClient } from '@/lib/supabase-server'
 import { notFound } from 'next/navigation'
+import Link from 'next/link'
 import { customers, dogs } from '@/lib/sample-data'
 import BeautySalonCustomers from '@/components/demo/beauty-salon/CustomersContent'
 import DentalPatients from '@/components/demo/dental-clinic/PatientsContent'
@@ -38,7 +39,11 @@ export default async function CustomersPage({ params }: Props) {
           {customers.map(c => {
             const myDogs = dogs.filter(d => d.customer_id === c.id)
             return (
-              <div key={c.id} className="px-3 sm:px-4 py-4 flex items-start gap-3 hover:bg-gray-50 transition-colors">
+              <Link
+                key={c.id}
+                href={`/demo/${slug}/customers/${c.id}`}
+                className="px-3 sm:px-4 py-4 flex items-start gap-3 hover:bg-gray-50 transition-colors"
+              >
                 <div className="w-10 h-10 bg-indigo-100 rounded-full flex items-center justify-center text-indigo-600 font-bold flex-shrink-0">
                   {c.name.charAt(0)}
                 </div>
@@ -58,8 +63,10 @@ export default async function CustomersPage({ params }: Props) {
                     </div>
                   )}
                 </div>
-                <span className="text-xs text-gray-400 flex-shrink-0 hidden sm:block">{c.registered_at} 登録</span>
-              </div>
+                <svg className="w-4 h-4 text-gray-300 flex-shrink-0 self-center" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                </svg>
+              </Link>
             )
           })}
         </div>

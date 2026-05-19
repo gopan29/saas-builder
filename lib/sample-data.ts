@@ -1,4 +1,16 @@
-// ドッグサロン デモ用サンプルデータ
+// ドッグサロン デモ用サンプルデータ（日付は「今日」基準で動的生成）
+
+const pad = (n: number) => String(n).padStart(2, '0')
+const dateOffset = (days: number): string => {
+  const d = new Date()
+  d.setDate(d.getDate() + days)
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`
+}
+const dateTimeOffset = (days: number, hour: number, min = 0): string => {
+  const d = new Date()
+  d.setDate(d.getDate() + days)
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())} ${pad(hour)}:${pad(min)}`
+}
 
 export const customers = [
   { id: 'c1', name: '田中 美咲', phone: '090-1234-5678', email: 'misaki@example.com', address: '大阪府高槻市城西町1-1', visit_count: 12, registered_at: '2023-04-10' },
@@ -21,40 +33,51 @@ export const dogs = [
   { id: 'd8', customer_id: 'c7', name: 'ラテ', breed: 'トイプードル', gender: '女の子', birth_date: '2019-12-01', weight: 3.8, color: 'シルバー', notes: '前回カット: テディベアカット' },
 ]
 
+// 予約: 今日 / 明日 / 明後日 / 3日後 で分散
 export const reservations = [
-  { id: 'r1', date: '2026-04-27', time: '10:00', customer_name: '田中 美咲', dog_name: 'モカ', service_type: 'シャンプー＆トリミング', status: 'confirmed', source: '電話', notes: '' },
-  { id: 'r2', date: '2026-04-27', time: '13:00', customer_name: '佐藤 由美', dog_name: 'ルナ', service_type: 'シャンプーのみ', status: 'confirmed', source: 'LINE', notes: 'アレルギー対応シャンプー使用' },
-  { id: 'r3', date: '2026-04-27', time: '15:00', customer_name: '中村 春香', dog_name: 'ここ', service_type: 'フルコース', status: 'pending', source: 'eパーク', notes: '' },
-  { id: 'r4', date: '2026-04-28', time: '10:00', customer_name: '山本 健太', dog_name: 'ハル', service_type: 'シャンプー＆トリミング', status: 'confirmed', source: '窓口', notes: '' },
-  { id: 'r5', date: '2026-04-28', time: '11:30', customer_name: '鈴木 拓也', dog_name: 'レオ', service_type: 'シャンプーのみ', status: 'confirmed', source: 'LINE', notes: '大型犬' },
-  { id: 'r6', date: '2026-04-28', time: '14:00', customer_name: '佐藤 由美', dog_name: 'ソラ', service_type: 'トリミングのみ', status: 'confirmed', source: '電話', notes: '' },
-  { id: 'r7', date: '2026-04-29', time: '09:30', customer_name: '加藤 里奈', dog_name: 'ラテ', service_type: 'フルコース', status: 'confirmed', source: '電話', notes: 'テディベアカット希望' },
-  { id: 'r8', date: '2026-04-29', time: '13:00', customer_name: '小林 誠', dog_name: 'チョコ', service_type: 'シャンプー＆トリミング', status: 'pending', source: 'eパーク', notes: '' },
-  { id: 'r9', date: '2026-04-30', time: '10:00', customer_name: '田中 美咲', dog_name: 'モカ', service_type: 'フルコース', status: 'confirmed', source: 'LINE', notes: '' },
-  { id: 'r10', date: '2026-04-30', time: '14:30', customer_name: '中村 春香', dog_name: 'ここ', service_type: 'シャンプーのみ', status: 'confirmed', source: '電話', notes: '' },
+  { id: 'r1', date: dateOffset(0),  time: '10:00', customer_id: 'c1', dog_id: 'd1', customer_name: '田中 美咲', dog_name: 'モカ',   service_type: 'シャンプー＆トリミング', staff: '佐藤 由美',  price: 7500, status: 'confirmed', source: '電話',    notes: '' },
+  { id: 'r2', date: dateOffset(0),  time: '13:00', customer_id: 'c3', dog_id: 'd3', customer_name: '佐藤 由美', dog_name: 'ルナ',   service_type: 'シャンプーのみ',           staff: '田中 翔太',  price: 4000, status: 'confirmed', source: 'LINE',   notes: 'アレルギー対応シャンプー使用' },
+  { id: 'r3', date: dateOffset(0),  time: '15:00', customer_id: 'c5', dog_id: 'd6', customer_name: '中村 春香', dog_name: 'ここ',   service_type: 'フルコース',                staff: '佐藤 由美',  price: 9800, status: 'pending',   source: 'eパーク', notes: '' },
+  { id: 'r4', date: dateOffset(1),  time: '10:00', customer_id: 'c2', dog_id: 'd2', customer_name: '山本 健太', dog_name: 'ハル',   service_type: 'シャンプー＆トリミング', staff: '田中 翔太',  price: 6500, status: 'confirmed', source: '窓口',   notes: '' },
+  { id: 'r5', date: dateOffset(1),  time: '11:30', customer_id: 'c4', dog_id: 'd5', customer_name: '鈴木 拓也', dog_name: 'レオ',   service_type: 'シャンプーのみ',           staff: '佐藤 由美',  price: 5500, status: 'confirmed', source: 'LINE',   notes: '大型犬' },
+  { id: 'r6', date: dateOffset(1),  time: '14:00', customer_id: 'c3', dog_id: 'd4', customer_name: '佐藤 由美', dog_name: 'ソラ',   service_type: 'トリミングのみ',           staff: '田中 翔太',  price: 4500, status: 'confirmed', source: '電話',   notes: '' },
+  { id: 'r7', date: dateOffset(2),  time: '09:30', customer_id: 'c7', dog_id: 'd8', customer_name: '加藤 里奈', dog_name: 'ラテ',   service_type: 'フルコース',                staff: '佐藤 由美',  price: 9800, status: 'confirmed', source: '電話',   notes: 'テディベアカット希望' },
+  { id: 'r8', date: dateOffset(2),  time: '13:00', customer_id: 'c6', dog_id: 'd7', customer_name: '小林 誠',   dog_name: 'チョコ', service_type: 'シャンプー＆トリミング', staff: '田中 翔太',  price: 6800, status: 'pending',   source: 'eパーク', notes: '' },
+  { id: 'r9', date: dateOffset(3),  time: '10:00', customer_id: 'c1', dog_id: 'd1', customer_name: '田中 美咲', dog_name: 'モカ',   service_type: 'フルコース',                staff: '佐藤 由美',  price: 9800, status: 'confirmed', source: 'LINE',   notes: '' },
+  { id: 'r10',date: dateOffset(3),  time: '14:30', customer_id: 'c5', dog_id: 'd6', customer_name: '中村 春香', dog_name: 'ここ',   service_type: 'シャンプーのみ',           staff: '田中 翔太',  price: 4500, status: 'confirmed', source: '電話',   notes: '' },
 ]
 
+// LINE: 直近の時刻
 export const lineCandidates = [
-  { id: 'l1', received_at: '2026-04-26 09:12', sender_name: '田中 美咲', message: 'こんにちは！モカのシャンプーをお願いしたいのですが、4/29（水）の午後は空いていますか？', requested_date: '2026-04-29', status: 'pending' },
-  { id: 'l2', received_at: '2026-04-26 11:45', sender_name: '新規のお客様', message: 'はじめまして。トイプードル（2歳・女の子）のトリミングをお願いしたいです。来週あたりで空いている日はありますか？', requested_date: null, status: 'pending' },
-  { id: 'l3', received_at: '2026-04-25 16:30', sender_name: '山本 健太', message: 'ハルの次回予約を5月上旬でお願いしたいです。いつが空いていますか？', requested_date: null, status: 'pending' },
-  { id: 'l4', received_at: '2026-04-25 10:00', sender_name: '加藤 里奈', message: 'ラテのカット、4/27の午後にお願いできますか？', requested_date: '2026-04-27', status: 'registered' },
+  { id: 'l1', received_at: dateTimeOffset(0, 9, 12),  sender_name: '田中 美咲',     message: 'こんにちは！モカのシャンプーをお願いしたいのですが、来週水曜の午後は空いていますか？', requested_date: dateOffset(3), status: 'pending' },
+  { id: 'l2', received_at: dateTimeOffset(0, 11, 45), sender_name: '新規のお客様',  message: 'はじめまして。トイプードル（2歳・女の子）のトリミングをお願いしたいです。来週あたりで空いている日はありますか？', requested_date: null, status: 'pending' },
+  { id: 'l3', received_at: dateTimeOffset(-1, 16, 30),sender_name: '山本 健太',     message: 'ハルの次回予約を来月上旬でお願いしたいです。いつが空いていますか？', requested_date: null, status: 'pending' },
+  { id: 'l4', received_at: dateTimeOffset(-1, 10, 0), sender_name: '加藤 里奈',     message: 'ラテのカット、明後日の午後にお願いできますか？', requested_date: dateOffset(2), status: 'registered' },
 ]
 
+// eパーク: 今日 / 明日 / 明後日 (未転記) と 過去 (転記済)
+const eparkBaseDate = dateOffset(-2).replace(/-/g, '')
 export const eparkEntries = [
-  { id: 'e1', epark_id: 'EP-20260426-001', reservation_date: '2026-04-27', reservation_time: '15:00', customer_name: '中村 春香', dog_name: 'ここ', service_type: 'フルコース', is_transferred: false },
-  { id: 'e2', epark_id: 'EP-20260426-002', reservation_date: '2026-04-29', reservation_time: '13:00', customer_name: '小林 誠', dog_name: 'チョコ', service_type: 'シャンプー＆トリミング', is_transferred: false },
-  { id: 'e3', epark_id: 'EP-20260425-003', reservation_date: '2026-04-28', reservation_time: '10:00', customer_name: '山本 健太', dog_name: 'ハル', service_type: 'シャンプー＆トリミング', is_transferred: true },
-  { id: 'e4', epark_id: 'EP-20260424-004', reservation_date: '2026-04-26', reservation_time: '11:00', customer_name: '田中 美咲', dog_name: 'モカ', service_type: 'シャンプーのみ', is_transferred: true },
+  { id: 'e1', epark_id: `EP-${eparkBaseDate}-001`, reservation_date: dateOffset(0), reservation_time: '15:00', customer_name: '中村 春香', dog_name: 'ここ', service_type: 'フルコース',                is_transferred: false },
+  { id: 'e2', epark_id: `EP-${eparkBaseDate}-002`, reservation_date: dateOffset(2), reservation_time: '13:00', customer_name: '小林 誠',   dog_name: 'チョコ', service_type: 'シャンプー＆トリミング', is_transferred: false },
+  { id: 'e3', epark_id: `EP-${dateOffset(-3).replace(/-/g,'')}-003`, reservation_date: dateOffset(1),  reservation_time: '10:00', customer_name: '山本 健太', dog_name: 'ハル', service_type: 'シャンプー＆トリミング', is_transferred: true },
+  { id: 'e4', epark_id: `EP-${dateOffset(-4).replace(/-/g,'')}-004`, reservation_date: dateOffset(-1), reservation_time: '11:00', customer_name: '田中 美咲', dog_name: 'モカ', service_type: 'シャンプーのみ',           is_transferred: true },
 ]
 
+// カルテ: 過去
 export const medicalRecords = [
-  { id: 'm1', dog_id: 'd1', dog_name: 'モカ', customer_name: '田中 美咲', visit_date: '2026-04-10', service_type: 'フルコース', condition: '毛並み良好。少し絡まり有り。', groomer_notes: 'テディベアカット。耳掃除実施。', next_visit_scheduled: '2026-05-10', price: 7500 },
-  { id: 'm2', dog_id: 'd8', dog_name: 'ラテ', customer_name: '加藤 里奈', visit_date: '2026-04-08', service_type: 'シャンプー＆トリミング', condition: '皮膚乾燥気味。保湿シャンプー使用。', groomer_notes: 'サマーカット。次回は保湿トリートメント推奨。', next_visit_scheduled: '2026-05-08', price: 6800 },
-  { id: 'm3', dog_id: 'd3', dog_name: 'ルナ', customer_name: '佐藤 由美', visit_date: '2026-04-05', service_type: 'シャンプーのみ', condition: '皮膚問題なし。アレルギー対応済み。', groomer_notes: 'アレルギー対応シャンプー使用。異常なし。', next_visit_scheduled: '2026-05-05', price: 4000 },
-  { id: 'm4', dog_id: 'd2', dog_name: 'ハル', customer_name: '山本 健太', visit_date: '2026-03-28', service_type: 'フルコース', condition: '耳に少し汚れ。毛玉あり（脇の下）。', groomer_notes: '毛玉除去。耳掃除丁寧に実施。', next_visit_scheduled: '2026-04-28', price: 6500 },
-  { id: 'm5', dog_id: 'd6', dog_name: 'ここ', customer_name: '中村 春香', visit_date: '2026-03-25', service_type: 'シャンプー＆トリミング', condition: '状態良好。', groomer_notes: 'ナチュラルカット。爪切り実施。', next_visit_scheduled: '2026-04-25', price: 5500 },
-  { id: 'm6', dog_id: 'd7', dog_name: 'チョコ', customer_name: '小林 誠', visit_date: '2026-03-20', service_type: 'シャンプー＆トリミング', condition: '目元に目やに。毛並み問題なし。', groomer_notes: '目元のカットを丁寧に。次回も同じスタイル希望。', next_visit_scheduled: '2026-04-20', price: 6000 },
+  { id: 'm1', dog_id: 'd1', dog_name: 'モカ',  customer_name: '田中 美咲', visit_date: dateOffset(-9),  service_type: 'フルコース',                condition: '毛並み良好。少し絡まり有り。',         groomer_notes: 'テディベアカット。耳掃除実施。',           next_visit_scheduled: dateOffset(21), price: 9800 },
+  { id: 'm2', dog_id: 'd8', dog_name: 'ラテ',  customer_name: '加藤 里奈', visit_date: dateOffset(-11), service_type: 'シャンプー＆トリミング', condition: '皮膚乾燥気味。保湿シャンプー使用。', groomer_notes: 'サマーカット。次回は保湿トリートメント推奨。', next_visit_scheduled: dateOffset(19), price: 6800 },
+  { id: 'm3', dog_id: 'd3', dog_name: 'ルナ',  customer_name: '佐藤 由美', visit_date: dateOffset(-14), service_type: 'シャンプーのみ',           condition: '皮膚問題なし。アレルギー対応済み。',   groomer_notes: 'アレルギー対応シャンプー使用。異常なし。',      next_visit_scheduled: dateOffset(16), price: 4000 },
+  { id: 'm4', dog_id: 'd2', dog_name: 'ハル',  customer_name: '山本 健太', visit_date: dateOffset(-22), service_type: 'フルコース',                condition: '耳に少し汚れ。毛玉あり（脇の下）。',    groomer_notes: '毛玉除去。耳掃除丁寧に実施。',                next_visit_scheduled: dateOffset(8),  price: 9800 },
+  { id: 'm5', dog_id: 'd6', dog_name: 'ここ',  customer_name: '中村 春香', visit_date: dateOffset(-25), service_type: 'シャンプー＆トリミング', condition: '状態良好。',                              groomer_notes: 'ナチュラルカット。爪切り実施。',              next_visit_scheduled: dateOffset(5),  price: 6500 },
+  { id: 'm6', dog_id: 'd7', dog_name: 'チョコ',customer_name: '小林 誠',   visit_date: dateOffset(-30), service_type: 'シャンプー＆トリミング', condition: '目元に目やに。毛並み問題なし。',       groomer_notes: '目元のカットを丁寧に。次回も同じスタイル希望。',next_visit_scheduled: dateOffset(0),  price: 6800 },
+  { id: 'm7', dog_id: 'd1', dog_name: 'モカ',  customer_name: '田中 美咲', visit_date: dateOffset(-40), service_type: 'シャンプー＆トリミング', condition: '通常。',                                  groomer_notes: '前回より少し短めにカット。',                  next_visit_scheduled: dateOffset(-10),price: 7500 },
+  { id: 'm8', dog_id: 'd5', dog_name: 'レオ',  customer_name: '鈴木 拓也', visit_date: dateOffset(-45), service_type: 'シャンプーのみ',           condition: '大型犬。毛量多め。',                      groomer_notes: '大型犬用台使用。ブラッシング念入りに。',       next_visit_scheduled: dateOffset(-15),price: 5500 },
+  { id: 'm9', dog_id: 'd8', dog_name: 'ラテ',  customer_name: '加藤 里奈', visit_date: dateOffset(-50), service_type: 'フルコース',                condition: '毛量多め。',                              groomer_notes: 'テディベアカット。',                          next_visit_scheduled: dateOffset(-20),price: 9800 },
+  { id: 'm10',dog_id: 'd3', dog_name: 'ルナ',  customer_name: '佐藤 由美', visit_date: dateOffset(-55), service_type: 'シャンプーのみ',           condition: '皮膚状態良好。',                          groomer_notes: 'アレルギー対応継続。',                        next_visit_scheduled: dateOffset(-25),price: 4000 },
+  { id: 'm11',dog_id: 'd6', dog_name: 'ここ',  customer_name: '中村 春香', visit_date: dateOffset(-60), service_type: 'フルコース',                condition: '通常。',                                  groomer_notes: '夏前なので少し短めに。',                      next_visit_scheduled: dateOffset(-30),price: 9800 },
+  { id: 'm12',dog_id: 'd2', dog_name: 'ハル',  customer_name: '山本 健太', visit_date: dateOffset(-65), service_type: 'シャンプー＆トリミング', condition: '通常。',                                  groomer_notes: '耳掃除実施。',                                next_visit_scheduled: dateOffset(-35),price: 6500 },
 ]
 
 export const serviceTypes = ['シャンプーのみ', 'トリミングのみ', 'シャンプー＆トリミング', 'フルコース', '爪切りのみ']
@@ -62,4 +85,20 @@ export const statusMap: Record<string, { label: string; color: string }> = {
   confirmed: { label: '確定', color: 'bg-green-100 text-green-700' },
   pending:   { label: '仮予約', color: 'bg-yellow-100 text-yellow-700' },
   cancelled: { label: 'キャンセル', color: 'bg-red-100 text-red-600' },
+}
+
+// 相対時刻表示用ヘルパー
+export function relativeTime(dateStr: string): string {
+  const target = new Date(dateStr.includes(':') ? dateStr.replace(' ', 'T') : dateStr + 'T00:00:00')
+  const now = new Date()
+  const diffMs = now.getTime() - target.getTime()
+  const diffMin = Math.floor(diffMs / 60000)
+  const diffHour = Math.floor(diffMin / 60)
+  const diffDay = Math.floor(diffHour / 24)
+  if (diffMin < 1) return 'たった今'
+  if (diffMin < 60) return `${diffMin}分前`
+  if (diffHour < 24) return `${diffHour}時間前`
+  if (diffDay < 7) return `${diffDay}日前`
+  if (diffDay < 30) return `${Math.floor(diffDay / 7)}週間前`
+  return `${Math.floor(diffDay / 30)}ヶ月前`
 }

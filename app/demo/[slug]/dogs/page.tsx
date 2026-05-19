@@ -1,6 +1,17 @@
+import Link from 'next/link'
+import { createClient } from '@/lib/supabase-server'
+import { notFound } from 'next/navigation'
 import { dogs, customers } from '@/lib/sample-data'
 
-export default function DogsPage() {
+type Props = { params: Promise<{ slug: string }> }
+
+export default async function DogsPage({ params }: Props) {
+  const { slug } = await params
+  const supabase = await createClient()
+  const { data: demo } = await supabase.from('demos').select('industry_template').eq('slug', slug).single()
+  if (!demo) notFound()
+  if (demo.industry_template !== 'dog_salon') notFound()
+
   const genderColor = (g: string) => g === '女の子' ? 'bg-pink-50 text-pink-500' : 'bg-blue-50 text-blue-500'
 
   const getAge = (birthDate: string) => {
@@ -26,7 +37,7 @@ export default function DogsPage() {
         {dogs.map(d => {
           const owner = customers.find(c => c.id === d.customer_id)
           return (
-            <div key={d.id} className="bg-white rounded-xl border border-gray-200 p-4 hover:shadow-sm transition-shadow">
+            <Link key={d.id} href={`/demo/${slug}/dogs/${d.id}`} className="bg-white rounded-xl border border-gray-200 p-4 hover:shadow-sm transition-shadow">
               <div className="flex items-start gap-3">
                 <div className="w-12 h-12 bg-amber-100 rounded-xl flex items-center justify-center text-2xl flex-shrink-0">
                   🐶
@@ -52,7 +63,7 @@ export default function DogsPage() {
                   )}
                 </div>
               </div>
-            </div>
+            </Link>
           )
         })}
       </div>
