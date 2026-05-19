@@ -40,9 +40,10 @@ export default async function DemoDashboard({ params }: Props) {
   const pendingEpark = eparkEntries.filter(e => !e.is_transferred).length
   const confirmedToday = todayReservations.filter(r => r.status === 'confirmed').length
 
-  // 月別売上 (過去6か月)
+  // 月別売上 (過去6か月) — 今月は「同期間 (1日〜今日)」と先月の「同期間 (1日〜N日)」で比較
   type MonthBucket = { label: string; total: number }
   const months: MonthBucket[] = []
+  const dayOfMonth = now.getDate()
   for (let i = 5; i >= 0; i--) {
     const d = new Date(now.getFullYear(), now.getMonth() - i, 1)
     const ym = `${d.getFullYear()}-${pad(d.getMonth() + 1)}`
@@ -53,8 +54,19 @@ export default async function DemoDashboard({ params }: Props) {
   }
   const maxMonth = Math.max(1, ...months.map(m => m.total))
   const currentMonthSales = months[months.length - 1].total
-  const prevMonthSales = months[months.length - 2]?.total ?? 0
-  const monthGrowth = prevMonthSales > 0 ? Math.round(((currentMonthSales - prevMonthSales) / prevMonthSales) * 100) : 0
+  // 前月同期間 (1日〜今日と同じ日)
+  const prevMonthDate = new Date(now.getFullYear(), now.getMonth() - 1, 1)
+  const prevMonthYm = `${prevMonthDate.getFullYear()}-${pad(prevMonthDate.getMonth() + 1)}`
+  const prevMonthSamePeriod = medicalRecords
+    .filter(r => {
+      if (!r.visit_date.startsWith(prevMonthYm)) return false
+      const day = parseInt(r.visit_date.slice(8, 10), 10)
+      return day <= dayOfMonth
+    })
+    .reduce((s, r) => s + r.price, 0)
+  const monthGrowth = prevMonthSamePeriod > 0
+    ? Math.round(((currentMonthSales - prevMonthSamePeriod) / prevMonthSamePeriod) * 100)
+    : 0
 
   // 人気メニュー
   const menuCount: Record<string, number> = {}
@@ -62,8 +74,8 @@ export default async function DemoDashboard({ params }: Props) {
   const popularMenu = Object.entries(menuCount).sort((a, b) => b[1] - a[1]).slice(0, 3)
   const menuTotal = medicalRecords.length
 
-  // リピート率
-  const repeatRate = Math.round((customers.filter(c => c.visit_count >= 3).length / customers.length) * 100)
+  // リピート率 (5回以上来店)
+  const repeatRate = Math.round((customers.filter(c => c.visit_count >= 5).length / customers.length) * 100)
 
   // 最近のアクティビティ (LINE + eパーク + カルテ をマージして時系列降順)
   type Activity = { ts: string; icon: string; bg: string; text: string; href: string }
@@ -172,22 +184,26 @@ export default async function DemoDashboard({ params }: Props) {
               </p>
             </div>
           </div>
-          <div className="flex items-end gap-2 h-32">
-            {months.map((m, i) => (
-              <div key={i} className="flex-1 flex flex-col items-center gap-1">
-                <div className="w-full bg-gray-50 rounded-t-md relative flex items-end" style={{ height: '100%' }}>
+          <div>
+            <div className="flex items-end gap-2 h-32">
+              {months.map((m, i) => (
+                <div key={i} className="flex-1 h-full bg-gray-50 rounded-t-md flex items-end overflow-hidden">
                   <div
                     className="w-full rounded-t-md transition-all"
                     style={{
-                      height: `${(m.total / maxMonth) * 100}%`,
+                      height: `${Math.max((m.total / maxMonth) * 100, 3)}%`,
                       backgroundColor: i === months.length - 1 ? color : color + '60',
                     }}
                     title={`${m.label}: ¥${m.total.toLocaleString()}`}
                   />
                 </div>
-                <span className="text-xs text-gray-400">{m.label}</span>
-              </div>
-            ))}
+              ))}
+            </div>
+            <div className="flex gap-2 mt-1.5">
+              {months.map((m, i) => (
+                <span key={i} className="flex-1 text-xs text-gray-400 text-center">{m.label}</span>
+              ))}
+            </div>
           </div>
         </div>
 
