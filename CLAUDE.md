@@ -47,16 +47,17 @@
 - 管理画面トップを新ダッシュボード化（`/admin`）
 - 4セクション構成：
   - `/admin/demos` — デモ案件管理（既存ロジック移設）
-  - `/admin/clients` — 顧客SaaS一覧（**モックデータ**）
+  - `/admin/clients` — 顧客SaaS一覧（**Supabase clients テーブルで実データ化**）
   - `/admin/samples` — 業種テンプレ8種の入口
   - `/admin/settings` — 設定（読み取り専用）
+- `clients` テーブル作成（`supabase/migrations/002_create_clients.sql`）。シード3件（Beam / MOMO / 青木整骨院）投入済み
 
 ### 残タスク
 
 1. **Vercel Production Domain 切替** — `saas-builder-coral.vercel.app` を Production に昇格、旧 `demo-builder-coral.vercel.app` を Remove。Vercel Dashboard → saas-builder/settings/domains で実施
 2. **ローカルディレクトリ rename** — `Clans Quest Project/demo-builder/` → `saas-builder/`。Claude Code セッション終了後にユーザーが手動 mv
 3. **Vercel 自動デプロイの修復** — 現状 main push で自動デプロイが発火しない。Vercel Dashboard → Settings → Git の Production Branch / Ignored Build Step を要確認
-4. **顧客SaaS の実データ化** — `/admin/clients` を Supabase clients テーブル（未作成）に置き換え
+4. **顧客SaaS の新規追加UI** — 現状は SQL 直入力。`/admin/clients/new` の作成は未着手
 
 ---
 
