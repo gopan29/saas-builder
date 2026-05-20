@@ -1,7 +1,7 @@
 'use client'
 
 import { useTransition } from 'react'
-import { deleteDemo } from '@/app/admin/actions'
+import { deleteDemo } from '@/app/admin/demos/actions'
 import { useRouter } from 'next/navigation'
 
 type Props = {

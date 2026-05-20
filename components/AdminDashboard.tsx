@@ -207,7 +207,7 @@ export default function AdminDashboard({ demos, stats }: Props) {
           {/* Create button */}
           <div className="flex items-stretch shadow-sm">
             <Link
-              href="/admin/new"
+              href="/admin/demos/new"
               className="flex-1 sm:flex-none flex items-center justify-center gap-1.5 bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold px-4 py-2 rounded-l-xl sm:rounded-l-xl rounded-r-none transition-colors"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -328,7 +328,7 @@ export default function AdminDashboard({ demos, stats }: Props) {
           {filteredDemos.length === 0 ? (
             <div className="bg-white rounded-xl border border-gray-200 p-12 text-center">
               <p className="text-gray-400 text-sm">デモ案件がありません</p>
-              <Link href="/admin/new" className="text-blue-500 text-sm mt-2 inline-block hover:underline">
+              <Link href="/admin/demos/new" className="text-blue-500 text-sm mt-2 inline-block hover:underline">
                 最初のデモを作成する →
               </Link>
             </div>
@@ -412,7 +412,7 @@ export default function AdminDashboard({ demos, stats }: Props) {
                         </svg>
                       </button>
                       <Link
-                        href={`/admin/${demo.id}/edit`}
+                        href={`/admin/demos/${demo.id}/edit`}
                         className="p-1.5 text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-lg transition-colors"
                         title="その他"
                       >
@@ -470,7 +470,7 @@ export default function AdminDashboard({ demos, stats }: Props) {
             <h3 className="text-sm font-semibold text-gray-800 mb-3">クイックアクション</h3>
             <div className="grid grid-cols-2 gap-2">
               <Link
-                href="/admin/new"
+                href="/admin/demos/new"
                 className="flex flex-col items-center gap-1.5 p-3 rounded-xl border border-gray-200 hover:border-blue-300 hover:bg-blue-50 transition-colors group"
               >
                 <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center group-hover:bg-blue-200 transition-colors">

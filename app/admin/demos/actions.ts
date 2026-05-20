@@ -25,8 +25,8 @@ export async function createDemo(formData: FormData) {
     return { error: error.message }
   }
 
-  revalidatePath('/admin')
-  redirect('/admin')
+  revalidatePath('/admin/demos')
+  redirect('/admin/demos')
 }
 
 export async function updateDemo(id: string, formData: FormData) {
@@ -50,8 +50,8 @@ export async function updateDemo(id: string, formData: FormData) {
     return { error: error.message }
   }
 
-  revalidatePath('/admin')
-  redirect('/admin')
+  revalidatePath('/admin/demos')
+  redirect('/admin/demos')
 }
 
 export async function deleteDemo(id: string) {
@@ -63,5 +63,5 @@ export async function deleteDemo(id: string) {
     return { error: error.message }
   }
 
-  revalidatePath('/admin')
+  revalidatePath('/admin/demos')
 }
